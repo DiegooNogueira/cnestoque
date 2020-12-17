@@ -7,7 +7,7 @@ class Principal extends StatefulWidget {
 } 
 
 class _PrincipalState extends State<Principal> {
-  String _data="";
+  String _data="q";
 
 _scan() async{
     await FlutterBarcodeScanner.scanBarcode("#000000", "Cancel", true, ScanMode.BARCODE).then((value) => setState(()=>_data = value));
