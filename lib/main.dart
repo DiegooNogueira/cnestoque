@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Hurry Agro',
+      title: 'CNEstoque',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.orange, fontFamily: "NotoSans"),
       home: Splash(),

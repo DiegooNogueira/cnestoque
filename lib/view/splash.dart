@@ -33,8 +33,8 @@ class _State extends State<Splash> {
       body: Center(
         child: Image.asset(
           "imagens/CNEstoque.png",
-          width: MediaQuery.of(context).size.width * 0.85,
-          height: MediaQuery.of(context).size.height * 0.35,
+          width: MediaQuery.of(context).size.width * 0.60,
+          height: MediaQuery.of(context).size.height * 0.25,
         ),
       ),
     );
