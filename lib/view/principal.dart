@@ -13,6 +13,7 @@ class _PrincipalState extends State<Principal> {
   String _cdg = "";
   TextEditingController controladorCodigo;
   TextEditingController controladorQtd = TextEditingController();
+  Map conteudo = {};
   //conexao
   var settings = mysql.ConnectionSettings(
       host: "localhost",
@@ -50,6 +51,8 @@ class _PrincipalState extends State<Principal> {
                   setState(() {
                     _cdg = controladorCodigo.text;
                     _qtd = controladorQtd.text;
+                    conteudo.addAll({'codigo': _cdg, 'quantidade': _qtd});
+                    print(conteudo);
                   });
                   Navigator.pop(context);
                 },
@@ -82,16 +85,16 @@ class _PrincipalState extends State<Principal> {
         appBar: AppBar(
           centerTitle: true,
           title: Image.asset(
-            "imagens/CNEstoque.png",
-            height: MediaQuery.of(context).size.height * 0.050,
+            "imagens/sgbr.png",
+            height: MediaQuery.of(context).size.height * 0.060,
           ),
         ),
-        body: SingleChildScrollView(
-            child: Center(
-          child: Column(
-            children: [
-              _cdg != ""
-                  ? Card(
+        body: Center(
+          child: conteudo.length != 0
+              ? ListView.builder(
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    return Card(
                       child: InkWell(
                         splashColor: Colors.orange[800].withAlpha(30),
                         onTap: () {
@@ -116,7 +119,7 @@ class _PrincipalState extends State<Principal> {
                                       ),
                                     ),
                                     Text(
-                                      _cdg,
+                                      conteudo['codigo'],
                                       style: TextStyle(
                                         fontSize: 18,
                                       ),
@@ -137,7 +140,7 @@ class _PrincipalState extends State<Principal> {
                                       ),
                                     ),
                                     Text(
-                                      _qtd,
+                                      conteudo['quantidade'],
                                       style: TextStyle(
                                         fontSize: 18,
                                       ),
@@ -148,16 +151,10 @@ class _PrincipalState extends State<Principal> {
                               ],
                             )),
                       ),
-                    )
-                  : Container(child: null),
-              RaisedButton.icon(
-                label: Text("Enviar"),
-                icon: Icon(Icons.check),
-                onPressed: () async => await addProduct(),
-              )
-            ],
-          ),
-        )),
+                    );
+                  })
+              : Container(child: Text("Nhenhu produto cadastrado ainda :(")),
+        ),
         floatingActionButton: FloatingActionButton(
           child: Icon(
             Icons.qr_code,
@@ -180,6 +177,7 @@ Widget formulario(
     obscureText: obscureText,
     decoration: InputDecoration(labelText: "$labelText"),
     controller: controller,
+    // ignore: missing_return
     validator: (value) {
       if (value.isEmpty) {
         return "$validator";
